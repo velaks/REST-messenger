@@ -4,8 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.ws.rs.NotFoundException;
+import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
+
 import jax.rest.app.messenger.database.DatabaseClass;
 import jax.rest.app.messenger.model.Comment;
+import jax.rest.app.messenger.model.ErrorMessage;
 import jax.rest.app.messenger.model.Message;
 
 public class CommentService {
@@ -19,7 +25,8 @@ private Map<Long, Message> messages = DatabaseClass.getMessages();
 	
 	public Comment getComment(long messageId, long commentId) {
 		Map<Long, Comment> comments = messages.get(messageId).getComments();
-		return comments.get(commentId);
+		Comment comment = comments.get(commentId);
+		return comment;
 	}
 	
 	public Comment addComment(long messageId, Comment comment) {
